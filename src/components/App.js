@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { Route, Switch, Redirect } from 'react-router-dom';
+import ProtectedRoute from './ProtectedRoute';
 import Header from "./Header";
 import Main from './Main';
 import Footer from "./Footer";
@@ -31,6 +33,8 @@ function App() {
   const [errorMessage, setErrorMessage] = useState({});  
   const [submitState, setSubmitState] = useState(false);
   const submitButtonState = submitState ? "" : "disabled";
+
+  const [loggedIn, setLoggedIn] = useState(false);
 
   // ============================ AVATAR ======================================
 
@@ -188,21 +192,33 @@ function App() {
   }
 
  // ===========================================================================================
+
   
   return (
     <CurrentUserContext.Provider value={currentUser}> {/* значение, которое передается всем дочерним элементам */}
     <div className="page">
       <Header />
 
-      <Main cards={cards}
-      onEditAvatar={handleEditAvatarClick} 
-      onEditProfile={handleEditProfileClick} 
-      onAddPlace={handleAddPlaceClick} 
-      onCardClick={handleCardClick}
-      onCardLike={handleCardLike} 
-      onConfirmDelete={handleDeleteClick}/>
+      <Switch>
+        <ProtectedRoute 
+          exact path="/"  
+          loggedIn={loggedIn}
+          cards={cards}
+          onEditAvatar={handleEditAvatarClick} 
+          onEditProfile={handleEditProfileClick} 
+          onAddPlace={handleAddPlaceClick} 
+          onCardClick={handleCardClick}
+          onCardLike={handleCardLike} 
+          onConfirmDelete={handleDeleteClick}
+          component={Main}>
+        </ProtectedRoute>
 
-      <Footer />
+        <Route path="/sign-up">
+        </Route>
+
+        <Route path="/sign-in">
+        </Route>
+      </Switch>
 
       <EditAvatarPopup 
         onClose={closeAllPopups} 
@@ -251,6 +267,8 @@ function App() {
         <ImagePopup card={selectedCard} onClose={closeAllPopups}
           isOpen={selectedCard ? 'popup_opened' : ''}/>
       }
+
+      <Footer />
   </div>
   </CurrentUserContext.Provider>
   );
