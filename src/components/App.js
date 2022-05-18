@@ -4,6 +4,7 @@ import ProtectedRoute from './ProtectedRoute';
 import Header from "./Header";
 import Main from './Main';
 import Footer from "./Footer";
+import Login from "./Login";
 import ImagePopup from "./ImagePopup";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
@@ -34,7 +35,7 @@ function App() {
   const [submitState, setSubmitState] = useState(false);
   const submitButtonState = submitState ? "" : "disabled";
 
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true);
 
   // ============================ AVATAR ======================================
 
@@ -214,9 +215,13 @@ function App() {
         </ProtectedRoute>
 
         <Route path="/sign-up">
+        <Register title="Регистрация" name="login" isValid={checkInputValidity} errorMessage={errorMessage} 
+            submitBtn={loading ? 'Регистрация...' : 'Зарегистрироваться'} />
         </Route>
 
         <Route path="/sign-in">
+          <Login title="Вход" name="login" isValid={checkInputValidity} errorMessage={errorMessage} 
+            submitBtn={loading ? 'Вход...' : 'Войти'} />
         </Route>
       </Switch>
 
