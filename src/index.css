@@ -45,6 +45,15 @@
 @import url(./blocks/place/__like-counter/place__like-counter.css);
 @import url(./blocks/place/__like-counter/_visible/place__like-counter_visible.css);
 
+/* ----- AUTH ----- */
+
+@import url(./blocks/auth/auth.css);
+@import url(./blocks/auth/__container/auth__container.css);
+@import url(./blocks/auth/__form/auth__form.css);
+@import url(./blocks/auth/__title/auth__title.css);
+@import url(./blocks/auth/__input/auth__input.css);
+@import url(./blocks/auth/__submit-button/auth__submit-button.css);
+
 /* ----- FOOTER ----- */
 
 @import url(./blocks/footer/footer.css);
