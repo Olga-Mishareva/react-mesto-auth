@@ -10,10 +10,12 @@
 
 @import url(./blocks/header/header.css);
 @import url(./blocks/header/__container/header__container.css);
+@import url(./blocks/logo/logo.css);
+@import url(./blocks/header/__auth-container/header__auth-container.css);
 @import url(./blocks/header/__auth/header__auth.css);
 @import url(./blocks/header/__logout/header__logout.css);
 @import url(./blocks/header/__logout/_visible/header__logout_visible.css);
-@import url(./blocks/logo/logo.css);
+
 
 /* ----- PROFILE ----- */
 
@@ -86,5 +88,15 @@
 @import url(./blocks/popup/__error/popup__error.css);
 @import url(./blocks/popup/__error/_visible/popup__error_visible.css);
 
+/* ----- AUTH-POPUP ----- */
 
-
+@import url(./blocks/tooltip/tooltip.css);
+@import url(./blocks/tooltip/_opened/tooltip_opened.css);
+@import url(./blocks/tooltip/_type/tooltip_type_confirm.css);
+@import url(./blocks/tooltip/_type/tooltip_type_reject.css);
+@import url(./blocks/tooltip/__container/tooltip__container.css);
+@import url(./blocks/tooltip/__close-button/tooltip__close-button.css);
+@import url(./blocks/tooltip/__image/tooltip__image.css);
+@import url(./blocks/tooltip/__message/tooltip__message.css);
+@import url(./blocks/tooltip/__message/_type/tooltip__message_type_comfirm.css);
+@import url(./blocks/tooltip/__message/_type/tooltip__message_type_reject.css);
