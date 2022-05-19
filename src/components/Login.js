@@ -15,24 +15,32 @@ function Login({ name, title, isValid, submitBtn, errorMessage }) {
 
 
   return (
-    // <div className={`popup popup_type_${name}`}>
-      <div className={`auth__container auth__container_type_${name}`}>
-        <form className="auth__form" noValidate name={name} action="#" method="post" id={name} onChange={isValid}>
-          <h2 className={`auth__title auth__title_type_${name}`}>{title}</h2>
-          <input className="auth__input auth__input_type_email" value={email || ''} type="email" required 
-             name="email" placeholder="Email" onChange={handleEmail}/>
-          <Validation errorMessage={errorMessage} name="email"/>   
+    <div className={`auth__container auth__container_type_${name}`}>
+      <form className="auth__form" noValidate name={name} action="#" method="post" id={name} onChange={isValid}>
+        <h2 className={`auth__title auth__title_type_${name}`}>{title}</h2>
+        <input className="auth__input auth__input_type_email" value={email || ''} type="email" required 
+            name="email" placeholder="Email" onChange={handleEmail}/>
+        <Validation errorMessage={errorMessage} name="email"/>   
 
-          <input className="auth__input auth__input_type_password" value={password || ''} type="password" required minLength="8"
-            maxLength="20" name="password" placeholder="Пароль" onChange={handlePassword}/>
-          <Validation errorMessage={errorMessage} name="password"/>
-          <button className={"auth__submit-button"} 
-            type="submit" form={name}>{submitBtn}</button>
-          <p className="auth__login-offer auth__login-offer_visible">Уже зарегистрированы? Войти</p>
-        </form>
-      </div>
-    // </div>
+        <input className="auth__input auth__input_type_password" value={password || ''} type="password" required minLength="8"
+          maxLength="20" name="password" placeholder="Пароль" onChange={handlePassword}/>
+        <Validation errorMessage={errorMessage} name="password"/>
+        <button className={"auth__submit-button"} 
+          type="submit" form={name}>{submitBtn}</button>
+        <p className="auth__login-offer auth__login-offer_visible">Уже зарегистрированы? Войти</p>
+      </form>
+    </div>
+
+    
   )
 }
 
 export default Login;
+
+    // <div className={`tooltip tooltop_type_ tooltip_opened`}>
+    //   <div className="tooltip__container">
+    //   <button className="tooltip__close-button" type="button" ></button>
+    //     <div className="tooltip__image"></div>
+    //     <h2 className={`tooltip__message tooltip__message_type_`}>Вы успешно зарегистрировались!</h2>
+    //   </div>
+    // </div> 
