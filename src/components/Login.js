@@ -28,6 +28,7 @@ function Login({ name, title, isValid, submitBtn, errorMessage }) {
           <Validation errorMessage={errorMessage} name="password"/>
           <button className={"auth__submit-button"} 
             type="submit" form={name}>{submitBtn}</button>
+          <p className="auth__login-offer auth__login-offer_visible">Уже зарегистрированы? Войти</p>
         </form>
       </div>
     // </div>
