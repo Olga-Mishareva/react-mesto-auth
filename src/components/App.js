@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
 import Header from "./Header";
 import Main from './Main';
@@ -12,6 +12,7 @@ import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import ConfirmPopup from "./ConfirmPopup";
 import api from "../utils/api";
+import { register, authorize } from "../utils/auth";
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function App() {
@@ -36,7 +37,9 @@ function App() {
   const [submitState, setSubmitState] = useState(false);
   const submitButtonState = submitState ? "" : "disabled";
 
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [email, setEmail] = useState('');
+  const history = useHistory();
 
   // ============================ AVATAR ======================================
 
@@ -195,6 +198,24 @@ function App() {
 
  // ===========================================================================================
 
+ function handleRegister(password, email) {
+   return register(password, email)
+    .then(() => {
+      history.push('/sign-in')
+    })
+    .catch(err => console.log(err));
+ }
+
+ function handleLogin(password, email) {
+   return authorize(password, email)
+   .then(data => {
+    if(data.jwt) {
+      localStorage.setItem('jwt', data.jwt);
+    }
+  })
+
+ }
+
   
   return (
     <CurrentUserContext.Provider value={currentUser}> {/* значение, которое передается всем дочерним элементам */}
@@ -202,26 +223,36 @@ function App() {
       <Header />
 
       <Switch>
-        <ProtectedRoute 
-          exact path="/"  
-          loggedIn={loggedIn}
+        {/* <ProtectedRoute exact path="/" loggedIn={loggedIn}>
+          <Main
           cards={cards}
           onEditAvatar={handleEditAvatarClick} 
           onEditProfile={handleEditProfileClick} 
           onAddPlace={handleAddPlaceClick} 
           onCardClick={handleCardClick}
           onCardLike={handleCardLike} 
-          onConfirmDelete={handleDeleteClick}
-          component={Main}>
+          onConfirmDelete={handleDeleteClick}/>
+        </ProtectedRoute> */}
+
+        <ProtectedRoute exact path="/" loggedIn={loggedIn} component={Main}
+        cards={cards}
+        onEditAvatar={handleEditAvatarClick} 
+        onEditProfile={handleEditProfileClick} 
+        onAddPlace={handleAddPlaceClick} 
+        onCardClick={handleCardClick}
+        onCardLike={handleCardLike} 
+        onConfirmDelete={handleDeleteClick}>
         </ProtectedRoute>
 
         <Route path="/sign-up">
-        <Register title="Регистрация" name="login" isValid={checkInputValidity} errorMessage={errorMessage} 
+          <Register title="Регистрация" name="register" errorMessage={errorMessage}
+            isValid={checkInputValidity} onRegister={handleRegister} 
             submitBtn={loading ? 'Регистрация...' : 'Зарегистрироваться'} />
         </Route>
 
         <Route path="/sign-in">
-          <Login title="Вход" name="login" isValid={checkInputValidity} errorMessage={errorMessage} 
+          <Login title="Вход" name="login" errorMessage={errorMessage} 
+            isValid={checkInputValidity} onLogin={handleLogin} 
             submitBtn={loading ? 'Вход...' : 'Войти'} />
         </Route>
       </Switch>
