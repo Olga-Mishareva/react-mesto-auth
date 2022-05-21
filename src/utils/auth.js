@@ -20,5 +20,15 @@ export function authorize(password, email) {
     body: JSON.stringify({password, email})
   })
   .then(res => getResponseData(res))
-  
+}
+
+export function getValidData(token) {
+  return fetch(`${baseUrl}/users/me`, {
+    method: 'GET',
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization" : `Bearer ${token}`
+    }
+  })
+  .then(res => getResponseData(res))
 }

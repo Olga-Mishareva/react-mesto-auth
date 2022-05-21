@@ -12,7 +12,7 @@ import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import ConfirmPopup from "./ConfirmPopup";
 import api from "../utils/api";
-import { register, authorize } from "../utils/auth";
+import { register, authorize, getValidData } from "../utils/auth";
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function App() {
@@ -198,23 +198,44 @@ function App() {
 
  // ===========================================================================================
 
- function handleRegister(password, email) {
-   return register(password, email)
-    .then(() => {
-      history.push('/sign-in')
-    })
-    .catch(err => console.log(err));
- }
+  function handleRegister(password, email) {
+    return register(password, email)
+      .then((res) => {
+        // if(res => )                 // тут показать попап 3sec
+        history.push('/sign-in')
+      })
+      .catch(err => console.log(err)); // тут показать попап
+  }
 
- function handleLogin(password, email) {
-   return authorize(password, email)
-   .then(data => {
-    if(data.jwt) {
-      localStorage.setItem('jwt', data.jwt);
+  function handleLogin(password, email) {
+    return authorize(password, email)
+    .then(data => {
+      if(data.token) {
+        localStorage.setItem('jwt', data.token);
+        checkToken();
+      }
+      })
+      .catch(err => console.log(err));
+  }
+
+  function checkToken() {
+    if(localStorage.getItem('jwt')) {
+      let token = localStorage.getItem('jwt');
+      console.log(token)
+      getValidData(token)
+      .then(data => {
+        setEmail(data.email);
+        setLoggedIn(true);
+      })
+      .catch(err => console.log(err)); 
     }
-  })
+  }
 
- }
+  useEffect(() => {
+    if(loggedIn) {
+      history.push('/')
+    }
+  }, [loggedIn])
 
   
   return (
@@ -223,7 +244,7 @@ function App() {
       <Header />
 
       <Switch>
-        {/* <ProtectedRoute exact path="/" loggedIn={loggedIn}>
+        <ProtectedRoute exact path="/" loggedIn={loggedIn}>
           <Main
           cards={cards}
           onEditAvatar={handleEditAvatarClick} 
@@ -232,9 +253,9 @@ function App() {
           onCardClick={handleCardClick}
           onCardLike={handleCardLike} 
           onConfirmDelete={handleDeleteClick}/>
-        </ProtectedRoute> */}
+        </ProtectedRoute>
 
-        <ProtectedRoute exact path="/" loggedIn={loggedIn} component={Main}
+        {/* <ProtectedRoute exact path="/" loggedIn={loggedIn} component={Main}
         cards={cards}
         onEditAvatar={handleEditAvatarClick} 
         onEditProfile={handleEditProfileClick} 
@@ -242,7 +263,7 @@ function App() {
         onCardClick={handleCardClick}
         onCardLike={handleCardLike} 
         onConfirmDelete={handleDeleteClick}>
-        </ProtectedRoute>
+        </ProtectedRoute> */}
 
         <Route path="/sign-up">
           <Register title="Регистрация" name="register" errorMessage={errorMessage}
