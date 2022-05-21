@@ -1,7 +1,16 @@
 export const baseUrl = 'https://auth.nomoreparties.co';
 
 function getResponseData(res) {
-  return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
+  // return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
+  if(res.ok) {
+    return res.json();
+  }
+  else {
+    return res.json()
+    .then(data => {
+      throw new Error(data.error);
+    });
+  }
 }
 
 export function register(password, email) {

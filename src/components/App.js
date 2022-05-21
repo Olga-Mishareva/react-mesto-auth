@@ -14,6 +14,7 @@ import ConfirmPopup from "./ConfirmPopup";
 import api from "../utils/api";
 import { register, authorize, getContent } from "../utils/auth";
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import InfoTooltip from "./InfoTooltip";
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
@@ -22,6 +23,7 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isConfirmPopupOpen, setIsConfirmPopupOpen] = useState(false);
+  const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
 
   const [loading, setLoading] = useState(false);
 
@@ -39,6 +41,8 @@ function App() {
 
   const [loggedIn, setLoggedIn] = useState(false);
   const [email, setEmail] = useState('');
+  const [isSignup, setIsSignup] = useState(false);
+  const [signupError, setSignupError] = useState('');
   const history = useHistory();
 
   // ============================ AVATAR ======================================
@@ -170,6 +174,7 @@ function App() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsConfirmPopupOpen(false);
+    setIsRegisterPopupOpen(false);
     setSelectedCard(null);
     setErrorMessage({});
   }
@@ -200,12 +205,28 @@ function App() {
 
   function handleRegister(password, email) {
     return register(password, email)
-      .then((res) => {
-        // if(res => )                 // тут показать попап 3sec
-        history.push('/sign-in')
+      .then(res => {
+        if(res.data._id) {
+          setIsSignup(true);
+          setIsRegisterPopupOpen(true);
+          setTimeout(() => {
+            setIsRegisterPopupOpen(false)
+          }, 2000);
+          history.push('/sign-in');
+        }
+        else {
+          setIsSignup(false);
+          setIsRegisterPopupOpen(true);
+        }                 
       })
-      .catch(err => console.log(err)); // тут показать попап
+      .catch((err) => {
+        setSignupError(err.message);
+        setIsSignup(false);
+        setIsRegisterPopupOpen(true);
+      }); 
   }
+
+
 
   function handleLogin(password, email) {
     return authorize(password, email)
@@ -324,6 +345,15 @@ function App() {
       {selectedCard && 
         <ImagePopup card={selectedCard} onClose={closeAllPopups}
           isOpen={selectedCard ? 'popup_opened' : ''}/>
+      }
+
+      {isRegisterPopupOpen && 
+        <InfoTooltip 
+          signupError={signupError}
+          isSignup={isSignup}
+          isOpen={isRegisterPopupOpen} 
+          onClose={closeAllPopups}>
+        </InfoTooltip>
       }
 
       <Footer />
