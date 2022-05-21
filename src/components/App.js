@@ -12,7 +12,7 @@ import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import ConfirmPopup from "./ConfirmPopup";
 import api from "../utils/api";
-import { register, authorize, getValidData } from "../utils/auth";
+import { register, authorize, getContent } from "../utils/auth";
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function App() {
@@ -221,8 +221,7 @@ function App() {
   function checkToken() {
     if(localStorage.getItem('jwt')) {
       let token = localStorage.getItem('jwt');
-      console.log(token)
-      getValidData(token)
+      getContent(token)
       .then(data => {
         setEmail(data.email);
         setLoggedIn(true);
@@ -235,7 +234,11 @@ function App() {
     if(loggedIn) {
       history.push('/')
     }
-  }, [loggedIn])
+  }, [loggedIn]);
+
+  // useEffect(() => {
+  //   checkToken();
+  // },[])
 
   
   return (

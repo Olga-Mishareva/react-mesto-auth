@@ -22,7 +22,7 @@ export function authorize(password, email) {
   .then(res => getResponseData(res))
 }
 
-export function getValidData(token) {
+export function getContent(token) {
   return fetch(`${baseUrl}/users/me`, {
     method: 'GET',
     headers: {

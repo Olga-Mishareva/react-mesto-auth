@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from 'react-router-dom';
 import Validation from "./Validation";
 // import * as auth from "../utils/auth";
 
@@ -38,7 +39,9 @@ function Register({ name, title, onRegister, isValid, submitBtn, errorMessage })
         <Validation errorMessage={errorMessage} name="password"/>
         <button className={"auth__submit-button"} 
           type="submit" form={name}>{submitBtn}</button>
-        <p className="auth__login-offer auth__login-offer_visible">Уже зарегистрированы? Войти</p>
+          <div className="auth__login-offer auth__login-offer_visible">
+            <Link to="/sign-in" className="auth__login-link">Уже зарегистрированы? Войти</Link>
+          </div>
       </form>
     </div>
   )
