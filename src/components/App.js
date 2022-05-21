@@ -222,8 +222,8 @@ function App() {
     if(localStorage.getItem('jwt')) {
       let token = localStorage.getItem('jwt');
       getContent(token)
-      .then(data => {
-        setEmail(data.email);
+      .then(res => {
+        setEmail(res.data.email);
         setLoggedIn(true);
       })
       .catch(err => console.log(err)); 
@@ -236,15 +236,22 @@ function App() {
     }
   }, [loggedIn]);
 
-  // useEffect(() => {
-  //   checkToken();
-  // },[])
+  useEffect(() => {
+    checkToken();
+  },[])
+
+  function handleSignOut() {
+    localStorage.removeItem('jwt');
+    setEmail('');
+    setLoggedIn(false);
+    history.push('/sign-in');
+  }
 
   
   return (
     <CurrentUserContext.Provider value={currentUser}> {/* значение, которое передается всем дочерним элементам */}
     <div className="page">
-      <Header />
+      <Header loggedIn={loggedIn} email={email} onSignOut={handleSignOut}/>
 
       <Switch>
         <ProtectedRoute exact path="/" loggedIn={loggedIn}>
@@ -257,16 +264,6 @@ function App() {
           onCardLike={handleCardLike} 
           onConfirmDelete={handleDeleteClick}/>
         </ProtectedRoute>
-
-        {/* <ProtectedRoute exact path="/" loggedIn={loggedIn} component={Main}
-        cards={cards}
-        onEditAvatar={handleEditAvatarClick} 
-        onEditProfile={handleEditProfileClick} 
-        onAddPlace={handleAddPlaceClick} 
-        onCardClick={handleCardClick}
-        onCardLike={handleCardLike} 
-        onConfirmDelete={handleDeleteClick}>
-        </ProtectedRoute> */}
 
         <Route path="/sign-up">
           <Register title="Регистрация" name="register" errorMessage={errorMessage}
