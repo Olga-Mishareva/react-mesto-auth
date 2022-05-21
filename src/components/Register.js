@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import Validation from "./Validation";
-// import * as auth from "../utils/auth";
-
 
 
 function Register({ name, title, onRegister, isValid, submitBtn, errorMessage }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
  
-  
   function handleEmail(e) {
     setEmail(e.target.value);
   }
@@ -20,7 +17,6 @@ function Register({ name, title, onRegister, isValid, submitBtn, errorMessage })
 
   function handleSubmit(e) {
     e.preventDefault();
-
     onRegister(password, email);
   }
 
