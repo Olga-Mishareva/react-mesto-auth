@@ -5,7 +5,7 @@ import useCheckButtonState from "../utils/useCheckButtonState";
 function PopupWithForm({ title, name, submitBtn, isOpen, onClose, isValid, onSubmit, children }) {
   const formRef = React.useRef();
  
-  const subminButtonState = useCheckButtonState(formRef.current ,isValid);
+  const subminButtonState = useCheckButtonState(formRef.current, isValid);
 
   useEscapeClick(isOpen, onClose);
 

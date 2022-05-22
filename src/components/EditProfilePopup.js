@@ -3,7 +3,7 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import PopupWithForm from "./PopupWithForm";
 import Validation from "./Validation";
 
-function EditProfilePopup({ isOpen, onClose, onUpdateUser, loading, isValid, isActive, errorMessage, onSetForms }) {
+function EditProfilePopup({ isOpen, onClose, onUpdateUser, loading, isValid, errorMessage }) {
   const [name, setName] = useState(''); 
   const [description, setDescription] = useState('');
   const currentUser = React.useContext(CurrentUserContext);
@@ -36,10 +36,9 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, loading, isValid, isA
   return (
     <PopupWithForm 
       title="Редактировать профиль" name="edit-profile" 
-      onClose={onClose} isOpen={isOpen}
-      isValid={isValid} isActive={isActive}
+      onClose={onClose} isOpen={isOpen} isValid={isValid}
       submitBtn={loading ? 'Сохраниение...' : 'Сохранить'} 
-      onSubmit={handleSubmit} onSetForms={onSetForms}>
+      onSubmit={handleSubmit}>
 
       <input className="popup__input popup__input_type_username" value={name || ''} type="text" required minLength="2" maxLength="40"
         onFocus={handleFocus} name="username" placeholder="Имя" onChange={handleName}/>

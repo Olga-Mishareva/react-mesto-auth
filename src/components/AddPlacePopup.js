@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import PopupWithForm from "./PopupWithForm";
 import Validation from "./Validation";
 
-function AddPlacePopup({ onClose, isOpen, loading, isValid, isActive, errorMessage, onAddCard, onSetForms }) {
+function AddPlacePopup({ onClose, isOpen, loading, isValid, errorMessage, onAddCard }) {
   const [title, setTitle] = useState('');
   const [image, setImage] = useState('');
 
@@ -31,10 +31,9 @@ function AddPlacePopup({ onClose, isOpen, loading, isValid, isActive, errorMessa
   return (
     <PopupWithForm 
         title="Новое место" name="add-place" 
-        onClose={onClose} isOpen={isOpen}
-        isValid={isValid} isActive={isActive}
+        onClose={onClose} isOpen={isOpen} isValid={isValid}
         submitBtn={loading ? 'Сохраниение...' : 'Создать'}
-        onSubmit={handleSubmit} onSetForms={onSetForms}> 
+        onSubmit={handleSubmit}> 
 
         <input className="popup__input popup__input_type_place" value={title} type="text" required minLength="2"
           onFocus={handleFocus} maxLength="40" name="place" placeholder="Название" onChange={handleTitle}/>

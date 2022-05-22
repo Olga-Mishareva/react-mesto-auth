@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
+import { Route, Switch, useHistory } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
 import Header from "./Header";
 import Main from './Main';
@@ -25,12 +25,11 @@ function App() {
   const [isConfirmPopupOpen, setIsConfirmPopupOpen] = useState(false);
   const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
 
-  const [loading, setLoading] = useState(false);
-
   const [cards, setCards] = useState([]);
   const [selectedCard, setSelectedCard] = useState(null);
   const [toRemove, setToRemove] = useState(null);
 
+  const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState({});  
 
   const [loggedIn, setLoggedIn] = useState(false);
@@ -194,7 +193,7 @@ function App() {
           setIsSignup(true);
           setIsRegisterPopupOpen(true);
           setTimeout(() => {
-            setIsRegisterPopupOpen(false)
+            setIsRegisterPopupOpen(false);
           }, 2000);
           history.push('/sign-in');
         }
@@ -208,7 +207,7 @@ function App() {
         setIsSignup(false);
         setIsRegisterPopupOpen(true);
       })
-      .finally(() => setLoading(false)); 
+      .finally(() => setLoading(false));
   }
 
   function handleLogin(password, email) {
@@ -320,14 +319,13 @@ function App() {
         isValid={checkInputValidity}>
       </AddPlacePopup>
 
-      {isConfirmPopupOpen &&
-        <ConfirmPopup 
-          card={toRemove}
-          onClose={closeAllPopups} 
-          isOpen={isConfirmPopupOpen}
-          onDeleteCard={handleCardDelete}
-          loading={loading}>
-        </ConfirmPopup>}
+      <ConfirmPopup 
+        card={toRemove}
+        onClose={closeAllPopups} 
+        isOpen={isConfirmPopupOpen}
+        onDeleteCard={handleCardDelete}
+        loading={loading}>
+      </ConfirmPopup>
 
       {selectedCard && 
         <ImagePopup card={selectedCard} onClose={closeAllPopups}
