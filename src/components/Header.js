@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import logo from '../images/logo.svg';
 
-function Header({ loggedIn, email, onSignOut }) {
+function Header({ loggedIn, email, resetValidation, onSignOut }) {
   return (
     <header className="header">
       <div className="header__container">
@@ -13,8 +13,8 @@ function Header({ loggedIn, email, onSignOut }) {
             Выйти
           </button>
           <nav className={`header__nav header__nav${!loggedIn ? '_active' : ''}`}>
-            <NavLink to="/sign-up" activeClassName="header__link" className="header__link_visible">Регистрация</NavLink>
-            <NavLink to="/sign-in" activeClassName="header__link" className="header__link_visible">Войти</NavLink>
+            <NavLink to="/sign-up" activeClassName="header__link" className="header__link_visible" onClick={resetValidation}>Регистрация</NavLink>
+            <NavLink to="/sign-in" activeClassName="header__link" className="header__link_visible" onClick={resetValidation}>Войти</NavLink>
           </nav>  
         </div>
       </div>

@@ -12,6 +12,9 @@ function AddPlacePopup({ onClose, isOpen, loading, isValid, isActive, errorMessa
   function handleImage(e) {
     setImage(e.target.value);
   }
+  function handleFocus(e) {
+    e.target.select();
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -24,6 +27,7 @@ function AddPlacePopup({ onClose, isOpen, loading, isValid, isActive, errorMessa
     setImage('');
   }
 
+  
   return (
     <PopupWithForm 
         title="Новое место" name="add-place" 
@@ -33,11 +37,11 @@ function AddPlacePopup({ onClose, isOpen, loading, isValid, isActive, errorMessa
         onSubmit={handleSubmit} onSetForms={onSetForms}> 
 
         <input className="popup__input popup__input_type_place" value={title} type="text" required minLength="2"
-          maxLength="40" name="place" placeholder="Название" onChange={handleTitle}/>
+          onFocus={handleFocus} maxLength="40" name="place" placeholder="Название" onChange={handleTitle}/>
         <Validation errorMessage={errorMessage} name="place"/>
 
         <input className="popup__input popup__input_type_img" value={image} type="url" required name="img"
-          placeholder="Ссылка на картинку" onChange={handleImage}/>
+          onFocus={handleFocus} placeholder="Ссылка на картинку" onChange={handleImage}/>
         <Validation errorMessage={errorMessage} name="img"/>
       </PopupWithForm>
   )

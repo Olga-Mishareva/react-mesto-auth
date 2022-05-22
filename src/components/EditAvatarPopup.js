@@ -8,10 +8,12 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, loading, isValid, is
   function handleAvatar(e) {
     setAvatar(e.target.value);
   }
+  function handleFocus(e) {
+    e.target.select();
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
-
     onUpdateAvatar({ avatar });
     setAvatar('');
   }
@@ -26,7 +28,7 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, loading, isValid, is
         onSubmit={handleSubmit} onSetForms={onSetForms}> 
 
         <input className="popup__input popup__input_type_avatar" value={avatar} type="url" required 
-        name="avatar" placeholder="Ссылка на картинку" onChange={handleAvatar}/>
+        onFocus={handleFocus} name="avatar" placeholder="Ссылка на картинку" onChange={handleAvatar}/>
         <Validation errorMessage={errorMessage} name="avatar"/>
       </PopupWithForm>
   ) 

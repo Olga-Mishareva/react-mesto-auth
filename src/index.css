@@ -62,6 +62,7 @@
 @import url(./blocks/auth/__title/auth__title.css);
 @import url(./blocks/auth/__input/auth__input.css);
 @import url(./blocks/auth/__submit-button/auth__submit-button.css);
+@import url(./blocks/auth/__submit-button/_disabled/auth__submit-button_disabled.css);
 @import url(./blocks/auth/__login-offer/auth__login-offer.css);
 @import url(./blocks/auth/__login-offer/_visible/auth__login-offer_visible.css);
 @import url(./blocks/auth/__login-link/auth__login-link.css);

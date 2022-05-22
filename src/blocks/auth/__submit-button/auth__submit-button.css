@@ -19,6 +19,7 @@
   transition: opacity .3s ease;
 }
 
+
 @media screen and (max-width: 540px) {
   .auth__submit-button {
     width: 238px;

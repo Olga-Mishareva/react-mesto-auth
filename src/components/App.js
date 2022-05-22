@@ -30,26 +30,20 @@ function App() {
   const [cards, setCards] = useState([]);
   const [selectedCard, setSelectedCard] = useState(null);
   const [toRemove, setToRemove] = useState(null);
-  
-  const [avatarForm, setAvatarForm] = useState(null); 
-  const [userForm, setUserForm] = useState(null);
-  const [cardForm, setCardForm] = useState(null);
 
   const [errorMessage, setErrorMessage] = useState({});  
-  const [submitState, setSubmitState] = useState(false);
-  const submitButtonState = submitState ? "" : "disabled";
 
   const [loggedIn, setLoggedIn] = useState(false);
   const [email, setEmail] = useState('');
   const [isSignup, setIsSignup] = useState(false);
   const [signupError, setSignupError] = useState('');
+
   const history = useHistory();
 
   // ============================ AVATAR ======================================
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
-    switchSubmitButtonState(avatarForm);
   }
 
   function handleUpdateAvatar(avatar) {
@@ -69,7 +63,6 @@ function App() {
 
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
-    switchSubmitButtonState(userForm);
   }
 
   useEffect(() => {
@@ -103,7 +96,6 @@ function App() {
 
   function handleAddPlaceClick() {
     setIsAddPlacePopupOpen(true);
-    switchSubmitButtonState(cardForm);
   }
 
   useEffect(() => {
@@ -181,29 +173,21 @@ function App() {
 
   // ============================ VALIDATION ======================================
 
-  function setForms(form) {
-    if(form.name === 'edit-avatar') setAvatarForm(form);
-    if(form.name === 'edit-profile') setUserForm(form);
-    if(form.name === 'add-place') setCardForm(form);
-  }
-
   function checkInputValidity(e) {
     if(!e.currentTarget.checkValidity()) {
       setErrorMessage({...errorMessage, [e.target.name]: e.target.validationMessage}); 
     }
-    else setErrorMessage({})
-    switchSubmitButtonState(e.currentTarget);
+    else setErrorMessage({});
   }
- 
-  function switchSubmitButtonState(form) {
-    if(form.checkValidity()) {
-      setSubmitState(true);
-    } else setSubmitState(false);
+
+  function resetValidation() {
+    setErrorMessage({});
   }
 
  // ===========================================================================================
 
   function handleRegister(password, email) {
+    setLoading(true); 
     return register(password, email)
       .then(res => {
         if(res.data._id) {
@@ -223,31 +207,37 @@ function App() {
         setSignupError(err.message);
         setIsSignup(false);
         setIsRegisterPopupOpen(true);
-      }); 
+      })
+      .finally(() => setLoading(false)); 
   }
 
-
-
   function handleLogin(password, email) {
+    setLoading(true);
     return authorize(password, email)
-    .then(data => {
-      if(data.token) {
-        localStorage.setItem('jwt', data.token);
-        checkToken();
-      }
+      .then(data => {
+        if(data.token) {
+          localStorage.setItem('jwt', data.token);
+          checkToken();
+        }
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        console.log(err.message);
+        setSignupError('Некорректный email или пароль');
+        setIsSignup(false);
+        setIsRegisterPopupOpen(true);
+      })
+      .finally(() => setLoading(false));
   }
 
   function checkToken() {
     if(localStorage.getItem('jwt')) {
       let token = localStorage.getItem('jwt');
       getContent(token)
-      .then(res => {
-        setEmail(res.data.email);
-        setLoggedIn(true);
-      })
-      .catch(err => console.log(err)); 
+        .then(res => {
+          setEmail(res.data.email);
+          setLoggedIn(true);
+        })
+        .catch(err => console.log(err.message)); 
     }
   }
 
@@ -272,7 +262,10 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}> {/* значение, которое передается всем дочерним элементам */}
     <div className="page">
-      <Header loggedIn={loggedIn} email={email} onSignOut={handleSignOut}/>
+      <Header 
+        loggedIn={loggedIn} email={email} 
+        onSignOut={handleSignOut} resetValidation={resetValidation}>
+      </Header>
 
       <Switch>
         <ProtectedRoute exact path="/" loggedIn={loggedIn}>
@@ -287,13 +280,14 @@ function App() {
         </ProtectedRoute>
 
         <Route path="/sign-up">
-          <Register title="Регистрация" name="register" errorMessage={errorMessage}
+          <Register title="Регистрация" errorMessage={errorMessage} 
             isValid={checkInputValidity} onRegister={handleRegister} 
+            resetValidation={resetValidation} 
             submitBtn={loading ? 'Регистрация...' : 'Зарегистрироваться'} />
         </Route>
 
         <Route path="/sign-in">
-          <Login title="Вход" name="login" errorMessage={errorMessage} 
+          <Login title="Вход" errorMessage={errorMessage} 
             isValid={checkInputValidity} onLogin={handleLogin} 
             submitBtn={loading ? 'Вход...' : 'Войти'} />
         </Route>
@@ -305,9 +299,7 @@ function App() {
         onUpdateAvatar={handleUpdateAvatar}
         loading={loading}
         errorMessage={errorMessage}
-        isValid={checkInputValidity} 
-        onSetForms={setForms}
-        isActive={submitButtonState}>
+        isValid={checkInputValidity}>
       </EditAvatarPopup>
 
       <EditProfilePopup 
@@ -316,9 +308,7 @@ function App() {
         onUpdateUser={handleUpdateUser}
         loading={loading}
         errorMessage={errorMessage}
-        isValid={checkInputValidity} 
-        onSetForms={setForms}
-        isActive={submitButtonState}>
+        isValid={checkInputValidity}>
       </EditProfilePopup>
 
       <AddPlacePopup 
@@ -327,9 +317,7 @@ function App() {
         onAddCard={handleAddPlaceSubmit}
         loading={loading}
         errorMessage={errorMessage}
-        isValid={checkInputValidity}
-        onSetForms={setForms} 
-        isActive={submitButtonState}>
+        isValid={checkInputValidity}>
       </AddPlacePopup>
 
       {isConfirmPopupOpen &&
@@ -338,7 +326,6 @@ function App() {
           onClose={closeAllPopups} 
           isOpen={isConfirmPopupOpen}
           onDeleteCard={handleCardDelete}
-          onSetForms={setForms}
           loading={loading}>
         </ConfirmPopup>}
 

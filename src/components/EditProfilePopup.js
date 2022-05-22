@@ -14,6 +14,14 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, loading, isValid, isA
   function handleDescription(e) {
     setDescription(e.target.value);
   }
+  function handleFocus(e) {
+    e.target.select();
+  }
+
+  useEffect(() => {
+    setName(currentUser.userName);
+    setDescription(currentUser.userInfo);
+  }, [currentUser, isOpen]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -23,11 +31,6 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, loading, isValid, isA
       about: description
     })
   }
-
-  useEffect(() => {
-    setName(currentUser.userName);
-    setDescription(currentUser.userInfo);
-  }, [currentUser, isOpen]);
 
 
   return (
@@ -39,11 +42,11 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, loading, isValid, isA
       onSubmit={handleSubmit} onSetForms={onSetForms}>
 
       <input className="popup__input popup__input_type_username" value={name || ''} type="text" required minLength="2" maxLength="40"
-        name="username" placeholder="Имя" onChange={handleName}/>
+        onFocus={handleFocus} name="username" placeholder="Имя" onChange={handleName}/>
       <Validation errorMessage={errorMessage} name="username"/>   
 
       <input className="popup__input popup__input_type_about" value={description || ''} type="text" required minLength="2"
-        maxLength="200" name="about" placeholder="О себе" onChange={handleDescription}/>
+        onFocus={handleFocus} maxLength="200" name="about" placeholder="О себе" onChange={handleDescription}/>
       <Validation errorMessage={errorMessage} name="about"/>
     </PopupWithForm>
   )
