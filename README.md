@@ -26,4 +26,4 @@
 
 
 
-[Ссылка на проект](https://olga-mishareva.github.io/mesto-react/)
+[Ссылка на проект](https://olga-mishareva.github.io/react-mesto-auth/)
