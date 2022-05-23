@@ -1,0 +1,9 @@
+/* .header__auth-container_invisible {
+  display: none;
+} */
+
+@media screen and (max-width: 540px) {
+  .header__auth-container_invisible {
+    display: none;
+  }
+}

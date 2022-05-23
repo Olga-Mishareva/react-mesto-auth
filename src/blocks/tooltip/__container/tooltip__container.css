@@ -12,8 +12,8 @@
 
 @media screen and (max-width: 540px) {
   .tooltip__container {
-    width: 282px;
-    min-height: 322px;
+    width: 280px;
+    min-height: 308px;
     top: calc(100%/2 - 161px);
     left: calc(100%/2 - 141px);
   }

@@ -14,3 +14,9 @@
   cursor: pointer;
   opacity: .6;
 }
+
+@media screen and (max-width: 540px) {
+  .header__logout_active{
+    margin: 18px 0 0 0;
+  }
+}
