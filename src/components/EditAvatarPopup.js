@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PopupWithForm from "./PopupWithForm";
 import Validation from "./Validation";
 
-function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, loading, isValid, errorMessage }) {
+function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, loading, loggedIn, isValid, errorMessage }) {
   const [avatar, setAvatar] = useState('');
 
   function handleAvatar(e) {
@@ -11,6 +11,10 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, loading, isValid, er
   function handleFocus(e) {
     e.target.select();
   }
+
+  useEffect(() => {
+    setAvatar('');
+  },[loggedIn])
 
   function handleSubmit(e) {
     e.preventDefault();

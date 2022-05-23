@@ -183,7 +183,7 @@ function App() {
     setErrorMessage({});
   }
 
- // ===========================================================================================
+ // ================================== AUTH =======================================================
 
   function handleRegister(password, email) {
     setLoading(true); 
@@ -241,14 +241,14 @@ function App() {
   }
 
   useEffect(() => {
+    checkToken();
+  },[]);
+
+  useEffect(() => {
     if(loggedIn) {
       history.push('/')
     }
   }, [loggedIn]);
-
-  useEffect(() => {
-    checkToken();
-  },[])
 
   function handleSignOut() {
     localStorage.removeItem('jwt');
@@ -295,6 +295,7 @@ function App() {
       <EditAvatarPopup 
         onClose={closeAllPopups} 
         isOpen={isEditAvatarPopupOpen}
+        loggedIn={loggedIn}
         onUpdateAvatar={handleUpdateAvatar}
         loading={loading}
         errorMessage={errorMessage}
@@ -313,6 +314,7 @@ function App() {
       <AddPlacePopup 
         onClose={closeAllPopups} 
         isOpen={isAddPlacePopupOpen}
+        loggedIn={loggedIn}
         onAddCard={handleAddPlaceSubmit}
         loading={loading}
         errorMessage={errorMessage}

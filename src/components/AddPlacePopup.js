@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PopupWithForm from "./PopupWithForm";
 import Validation from "./Validation";
 
-function AddPlacePopup({ onClose, isOpen, loading, isValid, errorMessage, onAddCard }) {
+function AddPlacePopup({ onClose, isOpen, loading, loggedIn, isValid, errorMessage, onAddCard }) {
   const [title, setTitle] = useState('');
   const [image, setImage] = useState('');
 
@@ -15,6 +15,11 @@ function AddPlacePopup({ onClose, isOpen, loading, isValid, errorMessage, onAddC
   function handleFocus(e) {
     e.target.select();
   }
+
+  useEffect(() => {
+    setTitle('');
+    setImage('');
+  },[loggedIn])
 
   function handleSubmit(e) {
     e.preventDefault();
