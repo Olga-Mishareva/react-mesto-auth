@@ -15,12 +15,12 @@
   }
 }
 
-@media screen and (max-width: 540px) {
+/* @media screen and (max-width: 540px) {
   .header__container {
     flex-direction: column-reverse;
     align-items: center;
   }
-}
+} */
 
 @media screen and (max-width: 475px) {
   .header__container {
