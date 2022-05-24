@@ -65,7 +65,7 @@ function App() {
   }
 
   useEffect(() => {
-    if(loggedIn) {
+    // if(loggedIn) {
       api.getUserData()
       .then(data => {
         setCurrentUser({ ...currentUser, 
@@ -76,7 +76,7 @@ function App() {
         })
       })
       .catch(err => console.log(err));
-    }
+    // }
   }, []);
 
   function handleUpdateUser(data) {
@@ -100,7 +100,7 @@ function App() {
   }
 
   useEffect(() => {
-    if(loggedIn) {
+    // if(loggedIn) {
       api.getUsersCards()
       .then(res => {
         const usersCards = res.map(card => {
@@ -115,7 +115,7 @@ function App() {
         setCards(usersCards);
       })
       .catch(err => console.log(err));
-    }
+    // }
   }, []);
 
   function handleAddPlaceSubmit(elem) {
