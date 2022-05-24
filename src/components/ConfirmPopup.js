@@ -7,7 +7,6 @@ function ConfirmPopup({ card, isOpen, onClose, onDeleteCard, loading }) {
     onDeleteCard(card);
   }
 
-
   return (
     <PopupWithForm 
       title="Вы уверены?" name="delete-place" 

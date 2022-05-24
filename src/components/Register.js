@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import { Link } from 'react-router-dom';
 import Validation from "./Validation";
 import useCheckButtonState from "../utils/useCheckButtonState";
@@ -13,11 +13,9 @@ function Register({ title, onRegister, isValid, submitBtn, errorMessage, resetVa
   function handleEmail(e) {
     setEmail(e.target.value);
   }
-
   function handlePassword(e) {
     setPassword(e.target.value);
   }
-
   function handleFocus(e) {
     e.target.select();
   }
@@ -26,7 +24,6 @@ function Register({ title, onRegister, isValid, submitBtn, errorMessage, resetVa
     e.preventDefault();
     onRegister(password, email);
   }
-
 
   return (
     <div className="auth__container">

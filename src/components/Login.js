@@ -1,4 +1,4 @@
-import React, { useState, useRef} from "react";
+import { useState, useRef} from "react";
 import Validation from "./Validation";
 import useCheckButtonState from "../utils/useCheckButtonState";
 
@@ -23,7 +23,6 @@ function Login({ title, onLogin, isValid, submitBtn, errorMessage }) {
     e.preventDefault();
     onLogin(password, email);
   }
-
 
   return (
     <div className="auth__container">

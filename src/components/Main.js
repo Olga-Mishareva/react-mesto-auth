@@ -5,7 +5,6 @@ import Card from "./Card";
 function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick, cards, onCardLike, onConfirmDelete }) {
   const currentUser = React.useContext(CurrentUserContext);
   
-
   return (
     <main className="content">
       <section className="profile">

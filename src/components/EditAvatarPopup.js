@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import PopupWithForm from "./PopupWithForm";
 import Validation from "./Validation";
 
@@ -21,7 +21,6 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, loading, loggedIn, i
     onUpdateAvatar({ avatar });
     setAvatar('');
   }
-
 
   return (
     <PopupWithForm 

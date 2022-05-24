@@ -32,7 +32,6 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, loading, isValid, err
     })
   }
 
-
   return (
     <PopupWithForm 
       title="Редактировать профиль" name="edit-profile" 

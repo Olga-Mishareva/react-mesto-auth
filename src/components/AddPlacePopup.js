@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import PopupWithForm from "./PopupWithForm";
 import Validation from "./Validation";
 
@@ -32,7 +32,6 @@ function AddPlacePopup({ onClose, isOpen, loading, loggedIn, isValid, errorMessa
     setImage('');
   }
 
-  
   return (
     <PopupWithForm 
         title="Новое место" name="add-place" 

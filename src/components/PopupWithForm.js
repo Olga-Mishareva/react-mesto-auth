@@ -9,7 +9,6 @@ function PopupWithForm({ title, name, submitBtn, isOpen, onClose, isValid, onSub
 
   useEscapeClick(isOpen, onClose);
 
-   
   return (
     <div className={`popup popup_type_${name} ${isOpen ? 'popup_opened' : ''}`} onMouseDown={onClose}>
       <div className={`popup__container popup__container_type_${name}`} onMouseDown={(e) => e.stopPropagation()}>

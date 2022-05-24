@@ -7,8 +7,7 @@ function InfoTooltip({ isSignup, signupError, isOpen, onClose }) {
   const image = isSignup ? confirm : reject;
 
   useEscapeClick(isOpen, onClose);
-
-
+  
   return (
     <div className={`tooltip tooltop_type_ tooltip_opened`} onMouseDown={onClose}>
       <div className="tooltip__container" onMouseDown={(e) => e.stopPropagation()}>
