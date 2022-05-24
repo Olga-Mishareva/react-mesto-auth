@@ -65,7 +65,8 @@ function App() {
   }
 
   useEffect(() => {
-    api.getUserData()
+    if(loggedIn) {
+      api.getUserData()
       .then(data => {
         setCurrentUser({ ...currentUser, 
           userName: data.name, 
@@ -75,6 +76,7 @@ function App() {
         })
       })
       .catch(err => console.log(err));
+    }
   }, []);
 
   function handleUpdateUser(data) {
@@ -98,7 +100,8 @@ function App() {
   }
 
   useEffect(() => {
-    api.getUsersCards()
+    if(loggedIn) {
+      api.getUsersCards()
       .then(res => {
         const usersCards = res.map(card => {
           return {
@@ -112,6 +115,7 @@ function App() {
         setCards(usersCards);
       })
       .catch(err => console.log(err));
+    }
   }, []);
 
   function handleAddPlaceSubmit(elem) {
@@ -257,7 +261,6 @@ function App() {
     history.push('/sign-in');
   }
 
-  
   return (
     <CurrentUserContext.Provider value={currentUser}> {/* значение, которое передается всем дочерним элементам */}
     <div className="page">
