@@ -1,16 +1,18 @@
-# Проект Mesto-React
-##### Курсовая работа №12 для Яндекс.Практикум
+# Project Mesto-React with authentication
+
 ---
 
-Прокет о самых красивых уголках России.
+The social network for communication with pictures and likes.
 
-В этой курсовой реализована регистрация и авторизация пользователей. 
+Implemented user registration and authorization. 
 
-Есть возможность менять имя и описание профиля, добавлять, удалять и лайкать фотографии, открывать фотографии большого размера. Добавлена валидация форм. Изменение иформации пользователя и его аватара осуществляется через изменение данных на сервере. Карточки подгружаются с сервера из общей базы данных группы. Любой карточке можно поставить или снять лайк. Удалять можно только свои карточки.
+It's possible to change profile name and description, add, delete and like photos, as well as open large-size photos. Form validation has been added.
+
+Changes to user information and his avatar are made by changing data on the server. The cards are loaded from the server from the group's common database. Any user can give or take away a like to any card. Only your own cards can be deleted.
 
 
 
-### Использованные технологии
+### Tech Stack
 
 * React
 * JS
@@ -18,12 +20,11 @@
 * CSS
 
 
-### Реальзовано с помощью
+### Implemented with
 
-* Адаптивная верстка / Медиа-запросы / Grid / Flex
-* БЭМ-методология
+* BEM methodology
 * API 
 
 
 
-[Ссылка на проект](https://olga-mishareva.github.io/react-mesto-auth/)
+[Show me the project](https://olga-mishareva.github.io/react-mesto-auth/)
