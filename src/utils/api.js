@@ -11,6 +11,7 @@ class Api {
 
   getUserData() {
     return fetch(`${this._baseUrl}/users/me`, {
+      // credentials: 'include',  // посылает токен в куки вместе с запросом. Разобраться. Применяется, если бэк и фронт на разных доменах.
       headers: {
         authorization: this._authorization
       }

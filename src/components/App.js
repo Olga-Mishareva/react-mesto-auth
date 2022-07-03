@@ -77,7 +77,7 @@ function App() {
       })
       .catch(err => console.log(err));
     }
-  }, []);
+  }, [loggedIn]);
 
   function handleUpdateUser(data) {
     setLoading(true);                 
@@ -116,7 +116,7 @@ function App() {
       })
       .catch(err => console.log(err));
     }
-  }, []);
+  }, [loggedIn]);
 
   function handleAddPlaceSubmit(elem) {
     setLoading(true); 
